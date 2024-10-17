@@ -10,3 +10,7 @@
 - [Auth Client](https://www.npmjs.com/package/@dfinity/auth-client) for loging in using Internet Identity
 - [Verifiable Credential](https://www.npmjs.com/package/@dfinity/verifiable-credentials) for requesting verifiable credentials
 
+### Other Developer dependencies
+- [Vite](https://www.npmjs.com/package/vite) for build process
+- [Tailwind](https://www.npmjs.com/package/tailwindcss) for styling
+
