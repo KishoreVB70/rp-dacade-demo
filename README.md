@@ -2,7 +2,11 @@
 
 - This is a vite vanilla js project
 
-Run this project locally
+### Run this project locally
 - `npm install`
 - `npm run dev`
+
+### IC package dependency
+- [Auth Client](https://www.npmjs.com/package/@dfinity/auth-client) for loging in using Internet Identity
+- [Verifiable Credential](https://www.npmjs.com/package/@dfinity/verifiable-credentials) for requesting verifiable credentials
 
