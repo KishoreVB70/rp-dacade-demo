@@ -13,11 +13,12 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedToken = jwtDecode(String(token.Ok));
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
+          let verificationState = decodedIssuerToken.vc?.type[1];
           updateState({ 
             decodedToken: decodedToken,
             decodedIIToken: decodedIIToken,
             decodedIssuerToken: decodedIssuerToken,
-            verificationState: "User verified"
+            verificationState:verificationState
           });
           resolve(decodedToken);  // Resolve the promise with the decoded token
         } catch (error) {

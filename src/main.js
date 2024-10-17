@@ -8,7 +8,6 @@ const loginBtn = document.getElementById("login");
 const rpBtn = document.getElementById("rp");
 const princText = document.getElementById("princ");
 const tokenText = document.getElementById("token");
-let decodedToken;
 
 
 const updateUI = () => {
