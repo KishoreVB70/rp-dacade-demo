@@ -1,4 +1,5 @@
 import { AuthClient } from '@dfinity/auth-client';
+import { updateState } from './store';
 
 export default async function loginWithloginWithIdentity(){
     const authClient = await AuthClient.create();
@@ -14,5 +15,6 @@ export default async function loginWithloginWithIdentity(){
     }
     const identity = authClient.getIdentity();
     const principal = identity.getPrincipal().toString();
+    updateState({userPrincipal: principal});
     return principal;
 }
