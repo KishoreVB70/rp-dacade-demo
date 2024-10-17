@@ -5,8 +5,8 @@ import { Principal } from "@dfinity/principal";
 // Deployed issuer url with id as query param- https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=bu5ax-5iaaa-aaaam-qbgcq-cai
 export default function requestVC(userPrincipal, name, recepientName){
   requestVerifiablePresentation({
-    onSuccess: async () => {
-      console.log("Success!");
+    onSuccess: async (token) => {
+      return token
     },
     onError(e) {
       console.log("Error: ", e);
@@ -26,6 +26,6 @@ export default function requestVC(userPrincipal, name, recepientName){
       },
       credentialSubject: Principal.fromText(userPrincipal),
     },
-    identityProvider: "https://identity.ic0.app",
+    identityProvider: new URL("https://identity.ic0.app"),
   });
 }

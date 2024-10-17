@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        orange: '#F15A24',
+        orange: '#D4207B',
         dacblue: "#1B66F8",
       },
     },

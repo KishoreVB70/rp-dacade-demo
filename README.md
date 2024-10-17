@@ -6,7 +6,7 @@
 - `npm install`
 - `npm run dev`
 
-### IC package dependency
+### IC package dependencies
 - [Auth Client](https://www.npmjs.com/package/@dfinity/auth-client) for loging in using Internet Identity
 - [Verifiable Credential](https://www.npmjs.com/package/@dfinity/verifiable-credentials) for requesting verifiable credentials
 
