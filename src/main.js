@@ -12,7 +12,7 @@ const tokenText = document.getElementById("token");
 
 const updateUI = () => {
   state = getState();
-  princText.innerText = state.userPrincipal;
+  princText.innerText = "User Principal: " + state.userPrincipal;
   tokenText.innerHTML = state.verificationState;
 }
 
