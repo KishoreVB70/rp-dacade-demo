@@ -1,7 +1,8 @@
+import "../styles.css";
+
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 
-import './styles.css';
 let userPrincipal;
 const loginBtn = document.getElementById("login");
 const rpBtn = document.getElementById("rp");
