@@ -1,4 +1,4 @@
-import "../styles.css";
+import "./styles.css";
 
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
