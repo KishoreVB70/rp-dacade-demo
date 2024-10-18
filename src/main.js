@@ -49,7 +49,7 @@ loginBtn.addEventListener("click", async() =>
 rpBtn.addEventListener("click", async() => {
   try {
     let state = getState();
-    await requestVC(state.userPrincipal, "ICP101", "Jonathan");
+    await requestVC(state.userPrincipal, "ICP101", "John Doe");
       Toastify({
         text: "Verification successful!",
         duration: 3000,  

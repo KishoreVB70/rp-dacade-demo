@@ -37,6 +37,8 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
 
+          // Yet to implement a check to identify if it is the expected issuer 
+
           // Semantic validation of the credential
           validateCredential(vc_spec, decodedIssuerToken.vc);
 
