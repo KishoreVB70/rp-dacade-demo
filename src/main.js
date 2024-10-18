@@ -28,8 +28,12 @@ loginBtn.addEventListener("click", async() =>
 
 // Request credeintial
 rpBtn.addEventListener("click", async() => {
-  await requestVC(state.userPrincipal, "ICP101", "Jonathan");
-  console.log(getState());
-  updateUI();
+  try {
+    await requestVC(state.userPrincipal, "ICP101", "Jonathan");
+    console.log(getState());
+    updateUI();
+  } catch(e) {
+    console.log("Error in crendential process: ", e);
+  }
 });
 
