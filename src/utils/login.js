@@ -8,6 +8,7 @@ export default async function loginWithloginWithIdentity(){
     if(!isAuthenticated) {
         await new Promise((resolve) => {
             authClient.login({
+                // For NFID -> https://nfid.one/authenticate
                 identityProvider: "https://identity.ic0.app/",
                 onSuccess: resolve,
             });
