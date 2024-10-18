@@ -6,6 +6,7 @@ let state = {
     decodedIIToken: {},
     decodedIssuerToken: {},
     verificationState: "",
+    issuer: "",
 };
 
 

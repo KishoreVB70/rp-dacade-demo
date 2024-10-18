@@ -28,7 +28,9 @@ const updateUI = () => {
 
   if (state.verificationState) {
     tokenText.style.display = "block";
-    tokenText.innerHTML = state.verificationState || "";
+    tokenText.innerHTML = state.verificationState
+    ?`${state.verificationState} Issued by ${state.issuer}`
+    : "";
   } else tokenText.style.display = "none";
 
 }

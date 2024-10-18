@@ -47,7 +47,8 @@ export default function requestVC(userPrincipal, name, recepientName) {
             decodedToken: decodedToken,
             decodedIIToken: decodedIIToken,
             decodedIssuerToken: decodedIssuerToken,
-            verificationState:verificationState
+            verificationState:verificationState,
+            issuer: decodedIssuerToken.iss,
           });
           resolve(decodedToken);  // Resolve the promise with the decoded token
         } catch (error) {
