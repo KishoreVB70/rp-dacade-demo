@@ -9,13 +9,13 @@
   </head>
   <body>
     <main class="flex flex-col items-center h-screen " >
-      <h1 class="mb-10 text-2xl text-orange mt-20" >Relying Party Demo</h1>
-      <div class="flex items-center justify-center" >
-        <button id="login" class=" m-3 px-6 py-3 bg-dacblue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75" >Login</button>
+      <h1 class="mt-32 text-4xl font-bold text-center text-gray-800 my-8">Relying Party Demo</h1>
+      <div class="mt-10 flex items-center justify-center" >
+        <button id="login" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out" >Login</button>
         <button id="rp" class=" m-3 px-6 py-3 bg-dacblue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Request credential</button>
       </div>
-      <p id="princ" class="mt-5 p-5 border border-red-500" ></p>
-      <p id="token" class="mt-5 p-5 border border-red-500" ></p>
+      <p id="princ" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60"></p>
+      <p id="token" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60" ></p>
     </main>
     <script type="module" src="./main.js"></script>
   </body>
