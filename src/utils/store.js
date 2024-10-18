@@ -1,11 +1,11 @@
 
 let state = {
-    userPrincipal: "User not logged in!",
+    userPrincipal: "",
     token: "",
     decodedToken: {},
     decodedIIToken: {},
     decodedIssuerToken: {},
-    verificationState: "User not verified",
+    verificationState: "",
 };
 
 
