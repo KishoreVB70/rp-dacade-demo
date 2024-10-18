@@ -9,13 +9,21 @@
   </head>
   <body>
     <main class="flex flex-col items-center h-screen " >
-      <h1 class="mt-32 text-4xl font-bold text-center text-gray-800 my-8">Relying Party Demo</h1>
+      <h1 class="mt-32 text-4xl font-bold text-center text-gray-800 my-8 shadow-lg" >Relying Party Demo</h1>
       <div class="mt-10 flex items-center justify-center" >
         <button id="login" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out" >Login</button>
         <button id="rp" class=" m-3 px-6 py-3 bg-dacblue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Request credential</button>
       </div>
       <p id="princ" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60"></p>
       <p id="token" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60" ></p>
+      <footer class="mt-16 text-sm text-gray-500">
+        <p>
+          Check out the source code on 
+          <a href="https://github.com/KishoreVB70/rp-dacade-demo" target="_blank" class="text-blue-500 hover:underline">GitHub</a>.
+          This project demonstrates being a <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/relying-party/" target="_blank" class="text-blue-500 hover:underline" >relying party</a>
+          in <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/overview" target="_blank" class="text-blue-500 hover:underline" >verifiable credentials</a>  workflow in ICP.
+        </p>
+      </footer>
     </main>
     <script type="module" src="./main.js"></script>
   </body>
