@@ -38,7 +38,7 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
           verificationState = decodedIssuerToken.vc?.type[1];
 
-          let validationResult = validateCredential(vc_spec, decodedIssuerToken);
+          let validationResult = validateCredential(vc_spec, decodedIssuerToken.vc);
 
           updateState({ 
             decodedToken: decodedToken,
