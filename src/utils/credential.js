@@ -2,7 +2,7 @@ import { requestVerifiablePresentation } from "@dfinity/verifiable-credentials/r
 import { Principal } from "@dfinity/principal";
 import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
-import {validateCredential} from "./validateCredential";
+import validateCredential from "./validateCredential";
 
 
 
@@ -23,7 +23,7 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let verificationState;
           let decodedToken = jwtDecode(String(res.Ok));
 
-          // 1) Check if the token is a verifiable credential
+          // Preliminary check to verify if the token is a verifiable credential
           if(!decodedToken.hasOwnProperty('vp')) {
             verificationState = "No Verified presentation in response";
             updateState({ 
@@ -51,7 +51,7 @@ export default function requestVC(userPrincipal, name, recepientName) {
           });
           resolve(decodedToken);  // Resolve the promise with the decoded token
         } catch (error) {
-          reject(error);  // Handle any error during token decoding or state update
+          reject(error);
         }
       },
       onError(e) {

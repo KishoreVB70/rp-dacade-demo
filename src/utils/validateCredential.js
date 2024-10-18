@@ -1,6 +1,7 @@
 
 export default function validateCredential(vcSpec, vcClaims) {
-    const credentialType = vcSpec.credential_type;
+    const credentialType = vcSpec.credentialType;
+
 
     // 1. Check if 'type' claim exists and contains the expected credential type
     const vcTypeEntry = vcClaims.type;

@@ -26,7 +26,7 @@ loginBtn.addEventListener("click", async() =>
     updateUI();
   })
 
-// Request credeintial
+// Request credential
 rpBtn.addEventListener("click", async() => {
   try {
     await requestVC(state.userPrincipal, "ICP101", "Jonathan");
