@@ -1,7 +1,11 @@
 import "./styles.css";
+import Toastify from 'toastify-js';
+import 'toastify-js/src/toastify.css';
+
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { getState } from "./utils/store";
+
 
 const loginBtn = document.getElementById("login");
 const rpBtn = document.getElementById("rp");
@@ -44,10 +48,27 @@ rpBtn.addEventListener("click", async() => {
   try {
     let state = getState();
     await requestVC(state.userPrincipal, "ICP101", "Jonathan");
+      Toastify({
+        text: "Verification successful!",
+        duration: 3000,  
+        gravity: "bottom", 
+        position: "center",
+        offset: {
+          y: -50,
+        },
+        backgroundColor: "#4CAF50",
+      }).showToast();
     console.log(getState());
     updateUI();
   } catch(e) {
     console.log("Error in crendential process: ", e);
+    Toastify({
+      text: "Verification failed!",
+      duration: 3000,
+      gravity: "bottom", 
+      position: "center",
+      backgroundColor: "#FF0000",
+    }).showToast();
   }
 });
 
