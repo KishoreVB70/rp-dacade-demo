@@ -6,6 +6,14 @@ import { updateState } from "./store";
 
 // Deployed issuer url with id as query param- https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=bu5ax-5iaaa-aaaam-qbgcq-cai
 export default function requestVC(userPrincipal, name, recepientName) {
+  let vc_spec =   
+  {
+    credentialType: `Verified ${name} completion on Dacade`,
+    arguments: {
+      name: recepientName,
+    },
+  }
+
   return new Promise((resolve, reject) => {
     requestVerifiablePresentation({
       onSuccess: async (token) => {
@@ -27,7 +35,7 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
           verificationState = decodedIssuerToken.vc?.type[1];
-          
+
           updateState({ 
             decodedToken: decodedToken,
             decodedIIToken: decodedIIToken,
@@ -48,12 +56,7 @@ export default function requestVC(userPrincipal, name, recepientName) {
         canisterId: Principal.fromText("bu5ax-5iaaa-aaaam-qbgcq-cai"),
       },
       credentialData: {
-        credentialSpec: {
-          credentialType: `Verified ${name} completion on Dacade`,
-          arguments: {
-            name: recepientName,
-          },
-        },
+        credentialSpec: vc_spec,
         credentialSubject: Principal.fromText(userPrincipal),
       },
       identityProvider: new URL("https://identity.ic0.app"),
