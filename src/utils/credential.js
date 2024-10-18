@@ -37,8 +37,6 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
 
-          // Yet to implement a check to identify if it is the expected issuer 
-
           // Semantic validation of the credential
           validateCredential(vc_spec, decodedIssuerToken.vc);
 
@@ -52,14 +50,14 @@ export default function requestVC(userPrincipal, name, recepientName) {
             verificationState:verificationState,
             issuer: decodedIssuerToken.iss,
           });
-          resolve(decodedToken);  // Resolve the promise with the decoded token
+          resolve(decodedToken);
         } catch (error) {
           reject(error);
         }
       },
       onError(e) {
         console.log("Error: ", e);
-        reject(e);  // Reject the promise if an error occurs
+        reject(e);
       },
       issuerData: {
         origin: "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/",
