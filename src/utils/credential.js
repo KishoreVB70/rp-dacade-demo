@@ -10,10 +10,24 @@ export default function requestVC(userPrincipal, name, recepientName) {
     requestVerifiablePresentation({
       onSuccess: async (token) => {
         try {
+          let verificationState;
           let decodedToken = jwtDecode(String(token.Ok));
+
+          // 1) Check if the token is a verifiable credential
+          if(!decodedToken.hasOwnProperty('vp')) {
+            verificationState = "No Verified presentation in response";
+            updateState({ 
+              decodedToken: decodedToken,
+              verificationState:verificationState
+            });
+            resolve(decodedToken);
+            return;
+          }
+
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
-          let verificationState = decodedIssuerToken.vc?.type[1];
+          verificationState = decodedIssuerToken.vc?.type[1];
+          
           updateState({ 
             decodedToken: decodedToken,
             decodedIIToken: decodedIIToken,
