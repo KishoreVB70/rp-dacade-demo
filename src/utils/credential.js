@@ -18,10 +18,10 @@ export default function requestVC(userPrincipal, name, recepientName) {
 
   return new Promise((resolve, reject) => {
     requestVerifiablePresentation({
-      onSuccess: async (token) => {
+      onSuccess: async (res) => {
         try {
           let verificationState;
-          let decodedToken = jwtDecode(String(token.Ok));
+          let decodedToken = jwtDecode(String(res.Ok));
 
           // 1) Check if the token is a verifiable credential
           if(!decodedToken.hasOwnProperty('vp')) {
@@ -36,9 +36,12 @@ export default function requestVC(userPrincipal, name, recepientName) {
 
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
-          verificationState = decodedIssuerToken.vc?.type[1];
 
-          let validationResult = validateCredential(vc_spec, decodedIssuerToken.vc);
+          // Semantic validation of the credential
+          validateCredential(vc_spec, decodedIssuerToken.vc);
+
+          // If the validadteCredential function doesn't throw, VC is validated
+          verificationState = vc_spec.credentialType;
 
           updateState({ 
             decodedToken: decodedToken,
