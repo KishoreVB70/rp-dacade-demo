@@ -1,5 +1,5 @@
 import { Actor, HttpAgent } from '@dfinity/agent';
-// import { idlFactory as canisterIdl } from "./";
+import { idlFactory as canisterIdl } from "./idlFactory.did.js";
 import { Principal } from "@dfinity/principal";
 
 const canisterId = "";
