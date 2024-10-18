@@ -2,6 +2,8 @@ import { requestVerifiablePresentation } from "@dfinity/verifiable-credentials/r
 import { Principal } from "@dfinity/principal";
 import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
+import {validateCredential} from "./validateCredential";
+
 
 
 // Deployed issuer url with id as query param- https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=bu5ax-5iaaa-aaaam-qbgcq-cai
@@ -35,6 +37,8 @@ export default function requestVC(userPrincipal, name, recepientName) {
           let decodedIIToken = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           let decodedIssuerToken = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
           verificationState = decodedIssuerToken.vc?.type[1];
+
+          let validationResult = validateCredential(vc_spec, decodedIssuerToken);
 
           updateState({ 
             decodedToken: decodedToken,
