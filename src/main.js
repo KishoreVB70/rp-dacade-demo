@@ -11,7 +11,9 @@ const tokenText = document.getElementById("token");
 
 const updateUI = () => {
   let state = getState();
-  princText.innerText = state.userPrincipal?"User Principal: " + state.userPrincipal:"User Not logged in";
+  princText.innerText = state.userPrincipal
+    ?`User Principal: ${state.userPrincipal.slice(0, 4)}...${state.userPrincipal.slice(-3)}`
+    :"User Not logged in";
   if (state.userPrincipal) {
     loginBtn.style.display = "none";
     rpBtn.style.display = "block";
