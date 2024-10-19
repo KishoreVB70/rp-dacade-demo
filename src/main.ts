@@ -4,7 +4,8 @@ import 'toastify-js/src/toastify.css';
 
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
-import { getState } from "./utils/store";
+import { State, getState } from "./utils/store";
+
 
 
 const loginBtn = document.getElementById("login") as HTMLButtonElement | null;
@@ -26,7 +27,7 @@ const updateInnerText = (element: HTMLElement | null, text: string): void => {
 
 
 const updateUI = () => {
-  const state = getState();
+  const state:State = getState();
 
   // Update principal text
   let principal: string = state.userPrincipal 
@@ -72,7 +73,7 @@ loginBtn?.addEventListener("click", async() =>  {
 // Request credential
 rpBtn?.addEventListener("click", async() => {
   try {
-    let state = getState();
+    let state:State = getState();
     await requestVC(state.userPrincipal, "ICP101", "John Doe");
     showToast("Verification completed", "#4CAF50");
     console.log(getState());
