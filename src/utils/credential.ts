@@ -27,9 +27,11 @@ export default function requestVC(userPrincipal: string, name: string, recepient
       onSuccess: async (res: VerifiablePresentationResponse) => {
         try {
 
-          let decodedToken: any;
+          let token: any;
+          let decodedToken: any
           if("Ok" in res) {
-            decodedToken = jwtDecode(res.Ok);
+            token = res.Ok;
+            decodedToken = jwtDecode(token);
           } else {
             reject("Error in presentation response");
           }
@@ -64,7 +66,7 @@ export default function requestVC(userPrincipal: string, name: string, recepient
             issuer: decodedIssuerToken.iss,
           });
 
-          resolve(decodedToken); // Resolve with the decoded token after successful validation
+          resolve(token); // Resolve with the decoded token after successful validation
         } catch (error) {
           reject(error); // Reject in case of any error
         }

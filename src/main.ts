@@ -1,7 +1,7 @@
 import "./styles.css";
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-
+import { jwtDecode } from "jwt-decode";
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { State, getState } from "./utils/store";
@@ -12,6 +12,30 @@ const loginBtn = document.getElementById("login") as HTMLButtonElement | null;
 const rpBtn = document.getElementById("rp") as HTMLButtonElement | null;
 const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
 const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
+// Get the elements for the dropdown button and menu
+let selectedCourse: string = ''; // This will store the selected course
+
+// Get the dropdown elements
+const menuButton = document.getElementById('menu-button') as HTMLElement;
+const dropDown = document.getElementById('drop-down') as HTMLElement;
+const dropdownMenu = menuButton.nextElementSibling as HTMLElement;
+const menuItems = dropdownMenu.querySelectorAll('a');
+
+// Toggle dropdown visibility on button click
+menuButton.addEventListener('click', () => {
+  dropdownMenu.classList.toggle('hidden');
+});
+
+// Update selectedCourse when a dropdown item is clicked
+menuItems.forEach((item) => {
+  item.addEventListener('click', (event: MouseEvent) => {
+    event.preventDefault();
+    const target = event.target as HTMLElement;
+    selectedCourse = target.textContent || ''; // Store the selected course text
+    menuButton.textContent = `Selected Course: ${selectedCourse}`; // Optionally update button text
+    dropdownMenu.classList.add('hidden');
+  });
+});
 
 // Helper function to toggle the visibility of an element
 const toggleVisibility = (element: HTMLElement | null, show: boolean): void => {
@@ -67,6 +91,7 @@ document.addEventListener("DOMContentLoaded", () => updateUI());
 // Internet Identity login
 loginBtn?.addEventListener("click", async() =>  {
   await loginWithIdentity();
+  dropDown.style.display = "inline-block";
   updateUI();
 })
 
@@ -74,7 +99,10 @@ loginBtn?.addEventListener("click", async() =>  {
 rpBtn?.addEventListener("click", async() => {
   try {
     let state:State = getState();
-    await requestVC(state.userPrincipal, "ICP101", "John Doe");
+    if (!selectedCourse) {
+      alert('Please select a course from the dropdown.');
+    }
+    let token: any = await requestVC(state.userPrincipal, selectedCourse, "John Doe");
     showToast("Verification completed", "#4CAF50");
     console.log(getState());
     updateUI();
