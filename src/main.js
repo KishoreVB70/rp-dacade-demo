@@ -35,42 +35,39 @@ const updateUI = () => {
 
 }
 
+const showToast = (text, bg) => {
+  Toastify({
+    text: text,
+    duration: 3000,  
+    gravity: "bottom", 
+    position: "center",
+    offset: {
+      y: -50,
+    },
+    backgroundColor: bg,
+  }).showToast();
+}
+
 
 document.addEventListener("DOMContentLoaded", () => updateUI());
 
 // Internet Identity login
-loginBtn.addEventListener("click", async() =>  
-  {
-    await loginWithIdentity();
-    updateUI();
-  })
+loginBtn.addEventListener("click", async() =>  {
+  await loginWithIdentity();
+  updateUI();
+})
 
 // Request credential
 rpBtn.addEventListener("click", async() => {
   try {
     let state = getState();
     await requestVC(state.userPrincipal, "ICP101", "John Doe");
-      Toastify({
-        text: "Verification successful!",
-        duration: 3000,  
-        gravity: "bottom", 
-        position: "center",
-        offset: {
-          y: -50,
-        },
-        backgroundColor: "#4CAF50",
-      }).showToast();
+    showToast("Verification completed", "#4CAF50");
     console.log(getState());
     updateUI();
   } catch(e) {
     console.log("Error in crendential process: ", e);
-    Toastify({
-      text: "Verification failed!",
-      duration: 3000,
-      gravity: "bottom", 
-      position: "center",
-      backgroundColor: "#FF0000",
-    }).showToast();
+    showToast("Verification failed!", "#FF0000")
   }
 });
 

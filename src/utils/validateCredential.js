@@ -1,4 +1,3 @@
-
 export default function validateCredential(vcSpec, vcClaims) {
     const credentialType = vcSpec.credentialType;
 
