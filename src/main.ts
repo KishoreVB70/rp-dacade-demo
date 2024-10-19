@@ -10,8 +10,8 @@ import { State, getState } from "./utils/store";
 
 const loginBtn = document.getElementById("login") as HTMLButtonElement | null;
 const rpBtn = document.getElementById("rp") as HTMLButtonElement | null;
-const princText = document.getElementById("princ") as HTMLButtonElement | null;
-const tokenText = document.getElementById("token") as HTMLButtonElement | null;
+const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
+const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
 
 // Helper function to toggle the visibility of an element
 const toggleVisibility = (element: HTMLElement | null, show: boolean): void => {
