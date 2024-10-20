@@ -6,21 +6,16 @@ import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { State, getState } from "./utils/store";
 
-
-
-const loginBtn = document.getElementById("login") as HTMLButtonElement | null;
-const rpBtn = document.getElementById("rp") as HTMLButtonElement | null;
+// Login
+const loginBtn = document.getElementById("login") as HTMLButtonElement;
 const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
-const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
-// Get the elements for the dropdown button and menu
-let selectedCourse: string = ''; // This will store the selected course
 
-// Get the dropdown elements
+// Drop Down
+let selectedCourse: string = '';
 const menuButton = document.getElementById('menu-button') as HTMLElement;
 const dropDown = document.getElementById('drop-down') as HTMLElement;
 const dropdownMenu = menuButton.nextElementSibling as HTMLElement;
 const menuItems = dropdownMenu.querySelectorAll('a');
-
 // Toggle dropdown visibility on button click
 menuButton.addEventListener('click', () => {
   dropdownMenu.classList.toggle('hidden');
@@ -36,6 +31,15 @@ menuItems.forEach((item) => {
     dropdownMenu.classList.add('hidden');
   });
 });
+
+
+
+// Credential
+const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
+const rpBtn = document.getElementById("rp") as HTMLButtonElement;
+
+
+
 
 // Helper function to toggle the visibility of an element
 const toggleVisibility = (element: HTMLElement | null, show: boolean): void => {
@@ -72,16 +76,15 @@ const updateUI = () => {
 }
 
 const showToast = (text: string , bg: string): void => {
+  
   Toastify({
     text: text,
     duration: 3000,  
     gravity: "bottom", 
     position: "center",
-    offset: {
-      x: 0,
-      y: -50,
+    style: {
+      background: bg,
     },
-    backgroundColor: bg,
   }).showToast();
 }
 
@@ -89,18 +92,19 @@ const showToast = (text: string , bg: string): void => {
 document.addEventListener("DOMContentLoaded", () => updateUI());
 
 // Internet Identity login
-loginBtn?.addEventListener("click", async() =>  {
+loginBtn.addEventListener("click", async() =>  {
   await loginWithIdentity();
   dropDown.style.display = "inline-block";
   updateUI();
 })
 
 // Request credential
-rpBtn?.addEventListener("click", async() => {
+rpBtn.addEventListener("click", async() => {
   try {
     let state:State = getState();
     if (!selectedCourse) {
-      alert('Please select a course from the dropdown.');
+      showToast("Please select a course from the dropdown", "#FF0000");
+      return;
     }
     let token: any = await requestVC(state.userPrincipal, selectedCourse, "John Doe");
     showToast("Verification completed", "#4CAF50");
