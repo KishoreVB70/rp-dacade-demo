@@ -20,7 +20,6 @@ const menuItems = dropdownMenu.querySelectorAll('a');
 menuButton.addEventListener('click', () => {
   dropdownMenu.classList.toggle('hidden');
 });
-
 // Update selectedCourse when a dropdown item is clicked
 menuItems.forEach((item) => {
   item.addEventListener('click', (event: MouseEvent) => {
@@ -32,14 +31,9 @@ menuItems.forEach((item) => {
   });
 });
 
-
-
 // Credential
 const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
 const rpBtn = document.getElementById("rp") as HTMLButtonElement;
-
-
-
 
 // Helper function to toggle the visibility of an element
 const toggleVisibility = (element: HTMLElement | null, show: boolean): void => {
@@ -52,7 +46,6 @@ const updateInnerText = (element: HTMLElement | null, text: string): void => {
   if (!element) return;
   element.innerText = text;
 };
-
 
 const updateUI = () => {
   const state:State = getState();
@@ -76,7 +69,6 @@ const updateUI = () => {
 }
 
 const showToast = (text: string , bg: string): void => {
-  
   Toastify({
     text: text,
     duration: 3000,  
@@ -87,7 +79,6 @@ const showToast = (text: string , bg: string): void => {
     },
   }).showToast();
 }
-
 
 document.addEventListener("DOMContentLoaded", () => updateUI());
 
