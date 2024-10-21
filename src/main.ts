@@ -4,7 +4,7 @@ import 'toastify-js/src/toastify.css';
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { State, getState } from "./utils/store";
-import { renderCredential } from "./utils/feat";
+import { renderCredential } from "./utils/decodeCredentialUI";
 
 // Login
 const loginBtn = document.getElementById("login") as HTMLButtonElement;

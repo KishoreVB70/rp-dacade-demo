@@ -1,6 +1,4 @@
 import { jwtDecode } from "jwt-decode";
-import { Principal } from "@dfinity/principal";
-
 /**
  * REQUEST CREDENTIAL LOGIC
  */
@@ -17,8 +15,6 @@ const hideVcContainer = () => {
   vcContainer?.classList.add("sm:hidden");
   vcContainer?.classList.remove("sm:grid");
 };
-
-
 
 /**
  * DECODE CREDENTIAL LOGIC
