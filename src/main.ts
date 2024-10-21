@@ -1,10 +1,10 @@
 import "./styles.css";
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
-import { jwtDecode } from "jwt-decode";
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { State, getState } from "./utils/store";
+import { renderCredential } from "./utils/feat";
 
 // Login
 const loginBtn = document.getElementById("login") as HTMLButtonElement;
@@ -100,6 +100,7 @@ rpBtn.addEventListener("click", async() => {
     let token: any = await requestVC(state.userPrincipal, selectedCourse, "John Doe");
     showToast("Verification completed", "#4CAF50");
     console.log(getState());
+    renderCredential(token);
     updateUI();
   } catch(e) {
     console.log("Error in crendential process: ", e);

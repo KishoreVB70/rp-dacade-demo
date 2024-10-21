@@ -7,43 +7,166 @@
     <base href="/">
     <link rel="icon" type="image/png" href="/relyingPartyLogo.ico" />
   </head>
-  <body>
-    <main class="flex flex-col items-center h-screen " >
-      <h1 class="mt-10 text-4xl font-bold text-center text-gray-800 my-8 shadow-lg" >Relying Party Demo</h1>
-      <div id="drop-down" class="hidden relative text-left mt-10">
-        <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
-          Select the course to request credential
-          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-          </svg>
-        </button>
-      
-        <div class="hidden  origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-          <div class="py-1" role="none">
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">TS101</a>
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">TS201</a>
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">ICVR</a>
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-3">AI101</a>
-            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-4">Rust101</a>
-          </div>
+  <body class="h-full">
+    <div class="min-h-full">
+        <div class="py-6 sm:py-10">
+        <main class="flex flex-col items-center">
+            <h1 class="mt-10 text-4xl font-bold text-center text-gray-800 my-8 shadow-lg" >Relying Party Demo</h1>
+            <div id="drop-down" class="hidden relative text-left mt-10">
+              <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                Select the course to request credential
+                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            
+              <div class="hidden  origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-0">TS101</a>
+                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-1">TS201</a>
+                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-2">ICVR</a>
+                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-3">AI101</a>
+                  <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900" role="menuitem" tabindex="-1" id="menu-item-4">Rust101</a>
+                </div>
+              </div>
+            </div>         
+            <div class="mt-10 flex items-center justify-center" >
+              <button id="login" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out" >Login</button>
+              <button id="rp" class=" m-3 px-6 py-3 bg-dacblue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Request credential</button>
+            </div>
+            <p id="princ" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60"></p>
+            <p id="token" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60" ></p>
+            <div
+                class="hidden sm:hidden mt-6 divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:gap-px"
+                id="vc-container"
+            >
+                <div
+                class="rounded-tl-lg sm:rounded-tr-none group relative bg-white p-6 flex flex-col gap-4 overflow-hidden"
+                >
+                <h3
+                    class="text-l font-bold leading-tight tracking-tight text-gray-900"
+                >
+                    JWT Credential Presentation
+                </h3>
+                <div class="bg-gray-900 text-white p-4 rounded-md">
+                    <pre
+                    id="code"
+                    class="text-gray-300"
+                    ><code id="vc-result" data-tid="vc-result" class="block overflow-hidden text-ellipsis"></code></pre>
+                </div>
+                <div>
+                    <button
+                    id="copy-credential-presentation-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Copy
+                    </button>
+                    <button
+                    id="decode-credential-presentation-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Decode Credential Presentation
+                    </button>
+                </div>
+                </div>
+                <div
+                class="hidden sm:rounded-tr-lg group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 flex-col gap-4 overflow-hidden"
+                id="vc-presentation-container"
+                >
+                <h3
+                    class="text-l font-bold leading-tight tracking-tight text-gray-900"
+                >
+                    Decoded Credential Presentation
+                </h3>
+                <div class="bg-gray-900 text-white p-4 rounded-md">
+                    <div>
+                    <pre
+                        id="code"
+                        class="text-gray-300"
+                    ><code id="vc-presentation" class="block overflow-hidden text-ellipsis"></code></pre>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <button
+                    id="copy-alias-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Copy Alias
+                    </button>
+                    <button
+                    id="decode-alias-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Decode Alias
+                    </button>
+                    <button
+                    id="copy-credential-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Copy Credential
+                    </button>
+                    <button
+                    id="decode-credential-button"
+                    type="button"
+                    class="relative -ml-px inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                    >
+                    Decode Credential
+                    </button>
+                </div>
+                </div>
+                <div
+                class="hidden sm:rounded-bl-lg rounded-br-lg group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 flex-col gap-4 overflow-hidden"
+                id="vc-alias-container"
+                >
+                <h3
+                    class="text-l font-bold leading-tight tracking-tight text-gray-900"
+                >
+                    Decoded Alias Credential
+                </h3>
+                <div class="bg-gray-900 text-white p-4 rounded-md">
+                    <div>
+                    <pre
+                        id="code"
+                        class="text-gray-300"
+                    ><code id="vc-alias" class="block overflow-hidden text-ellipsis"></code></pre>
+                    </div>
+                </div>
+                </div>
+                <div
+                class="hidden sm:rounded-tr-lg rounded-br-lg group relative bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500 flex-col gap-4 overflow-hidden"
+                id="vc-credential-container"
+                >
+                <h3
+                    class="text-l font-bold leading-tight tracking-tight text-gray-900"
+                >
+                    Decoded Requested Credential
+                </h3>
+                <div class="bg-gray-900 text-white p-4 rounded-md">
+                    <div>
+                    <pre
+                        id="code"
+                        class="text-gray-300"
+                    ><code id="vc-credential" class="block overflow-hidden text-ellipsis"></code></pre>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <footer class="p-2 mt-16 text-sm text-gray-500">
+                <p>
+                  Check out the source code on 
+                  <a href="https://github.com/KishoreVB70/rp-dacade-demo" target="_blank" class="text-blue-500 hover:underline">GitHub</a>.
+                  This project demonstrates being a <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/relying-party/" target="_blank" class="text-blue-500 hover:underline" >relying party</a>
+                  in <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/overview" target="_blank" class="text-blue-500 hover:underline" >verifiable credentials</a>  workflow in ICP.
+                </p>
+            </footer>
+        </main>
         </div>
-      </div>
-      
-      <div class="mt-10 flex items-center justify-center" >
-        <button id="login" class="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-300 ease-in-out" >Login</button>
-        <button id="rp" class=" m-3 px-6 py-3 bg-dacblue text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75">Request credential</button>
-      </div>
-      <p id="princ" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60"></p>
-      <p id="token" class="text-lg text-gray-700 bg-gray-100 rounded-lg p-4 my-4 shadow-lg ring-2 ring-blue-300 ring-opacity-60" ></p>
-      <footer class="p-2 mt-16 text-sm text-gray-500">
-        <p>
-          Check out the source code on 
-          <a href="https://github.com/KishoreVB70/rp-dacade-demo" target="_blank" class="text-blue-500 hover:underline">GitHub</a>.
-          This project demonstrates being a <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/relying-party/" target="_blank" class="text-blue-500 hover:underline" >relying party</a>
-          in <a href="https://internetcomputer.org/docs/current/developer-docs/identity/verifiable-credentials/overview" target="_blank" class="text-blue-500 hover:underline" >verifiable credentials</a>  workflow in ICP.
-        </p>
-      </footer>
-    </main>
+    </div>
     <script type="module" src="./main.ts"></script>
-  </body>
+</body>
 </html>
