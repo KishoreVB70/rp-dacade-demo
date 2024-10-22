@@ -3,22 +3,15 @@ import { Principal } from "@dfinity/principal";
 import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
 import   validateCredential  from "./validateCredential";
-
-// Define types for the Verifiable Credential Spec
-interface VcSpec {
-  credentialType: string;
-  arguments: {
-    name: string;
-  };
-}
+import { CredentialRequestSpec } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
 
 // Main function for requesting verifiable credentials
-export default function requestVC(userPrincipal: string, name: string, recepientName: string): Promise<any> {
+export default function requestVC(userPrincipal: string, course: string): Promise<any> {
 
-  const vc_spec: VcSpec = {
-    credentialType: `Verified ${name} completion on Dacade`,
+  const vc_spec: CredentialRequestSpec = {
+    credentialType: `Verified ${course} completion on Dacade`,
     arguments: {
-      name: recepientName,
+      course: course,
     },
   };
 
