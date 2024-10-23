@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
 import   validateCredential  from "./validateCredential";
 import { CredentialRequestSpec } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
+import { ii_url, issuer_canister_id, issuer_url } from "./constants";
 
 // Main function for requesting verifiable credentials
 export default function requestVC(userPrincipal: string, course: string): Promise<any> {
@@ -69,14 +70,14 @@ export default function requestVC(userPrincipal: string, course: string): Promis
         reject(e); // Reject the promise if there is an error
       },
       issuerData: {
-        origin: "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/",
-        canisterId: Principal.fromText("bu5ax-5iaaa-aaaam-qbgcq-cai"),
+        origin: issuer_url,
+        canisterId: Principal.fromText(issuer_canister_id),
       },
       credentialData: {
         credentialSpec: vc_spec,
         credentialSubject: Principal.fromText(userPrincipal),
       },
-      identityProvider: new URL("https://identity.ic0.app"),
+      identityProvider: new URL(ii_url),
     });
   });
 }

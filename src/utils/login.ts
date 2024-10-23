@@ -2,6 +2,7 @@ import { AuthClient } from '@dfinity/auth-client';
 import { updateState } from './store';
 import { idlFactory, canisterId} from '../rpdemo_backend';
 import { HttpAgent, Actor, Identity} from '@dfinity/agent';
+import { ii_url } from './constants';
 
 async function authenticateUser(): Promise<Identity> {
     const authClient: AuthClient = await AuthClient.create();
@@ -10,7 +11,7 @@ async function authenticateUser(): Promise<Identity> {
         await new Promise<void>((resolve) => {
             authClient.login({
                 // For NFID -> https://nfid.one/authenticate
-                identityProvider: "https://identity.ic0.app/",
+                identityProvider: ii_url,
                 onSuccess: resolve,
             });
         });
@@ -31,7 +32,7 @@ export async function getRpBackendActor(): Promise<Actor> {
 };
 
 export default async function loginWithloginWithIdentity(): Promise<String>{
-    const identity = authenticateUser();
+    const identity = await authenticateUser();
     const principal: string = identity.getPrincipal().toString();
     updateState({userPrincipal: principal});
     return principal;
