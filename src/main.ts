@@ -3,7 +3,7 @@ import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
-import { State, getState } from "./utils/store";
+import { State, getState, updateState } from "./utils/store";
 import { renderCredential } from "./utils/decodeCredentialUI";
 import { Principal } from "@dfinity/principal";
 import { CredentialSpec, ValidateVpRequest } from "./relying_party/relying_party.did";
@@ -18,6 +18,8 @@ if (typeof global === 'undefined') {
 const loginBtn = document.getElementById("login") as HTMLButtonElement;
 const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
 const verifyBtn = document.getElementById("verifybtn") as HTMLButtonElement;
+const loadingElement = document.getElementById('loading');
+
 
 // Drop Down
 let selectedCourse: string = '';
@@ -124,6 +126,7 @@ rpBtn.addEventListener("click", async() => {
 // Verify credential
 verifyBtn.addEventListener("click", async() => {
   try {
+    loadingElement?.classList.remove('hidden');
     let state:State = getState();
     let issuerUrl = "https://dacade.org/";
     const vc_spec_backend: CredentialSpec = {
@@ -154,9 +157,15 @@ verifyBtn.addEventListener("click", async() => {
     let result = await actor.validate_vc_token_allinputs(req);
     console.log("Result from backend: ", result);
     showToast("Verification Succesfull", "#4CAF50");
+    let verificationState = `Successfully Verified ${selectedCourse} completion on Dacade`
+    updateState({
+      verificationState: verificationState,
+    })
     updateUI();
   } catch(e) {
     console.log("Error in verification process: ", e);
     showToast("Verification failed!", "#FF0000")
+  } finally {
+    loadingElement?.classList.add('hidden');
   }
 });

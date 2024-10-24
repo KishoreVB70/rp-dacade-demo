@@ -43,7 +43,7 @@ export default function requestVC(userPrincipal: string, course: string): Promis
           const decodedIssuerToken: any = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
 
           // Update verification state
-          verificationState = vc_spec.credentialType;
+          verificationState = "Verifiable credential Obtained";
           updateState({
             token: token,
             decodedToken,
