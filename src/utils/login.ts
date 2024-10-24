@@ -1,7 +1,6 @@
 import { AuthClient } from '@dfinity/auth-client';
 import { updateState } from './store';
-import { idlFactory, canisterId} from '../rpdemo_backend';
-import { HttpAgent, Actor, Identity} from '@dfinity/agent';
+import { Identity } from '@dfinity/agent';
 import { ii_url } from './constants';
 
 async function authenticateUser(): Promise<Identity> {
@@ -18,18 +17,6 @@ async function authenticateUser(): Promise<Identity> {
     }
     return authClient.getIdentity();
 }
-
-export async function getRpBackendActor(): Promise<Actor> {
-    const identity = authenticateUser();
-    const rpBackendActor = Actor.createActor(idlFactory, {
-        agent: new HttpAgent({
-            identity,
-        }),
-        canisterId,
-    });
-    console.log(rpBackendActor);
-    return rpBackendActor;
-};
 
 export default async function loginWithloginWithIdentity(): Promise<String>{
     const identity = await authenticateUser();
