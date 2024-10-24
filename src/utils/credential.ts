@@ -2,13 +2,10 @@ import { requestVerifiablePresentation, VerifiablePresentationResponse } from "@
 import { Principal } from "@dfinity/principal";
 import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
-import   validateCredential  from "./validateCredential";
 import { CredentialRequestSpec } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
 import { ii_url, issuer_canister_id, issuer_url } from "./constants";
 
-// Main function for requesting verifiable credentials
 export default function requestVC(userPrincipal: string, course: string): Promise<any> {
-
   const vc_spec: CredentialRequestSpec = {
     credentialType: `Verified ${course} completion on Dacade`,
     arguments: {
@@ -31,7 +28,6 @@ export default function requestVC(userPrincipal: string, course: string): Promis
           }
 
           let verificationState: string;
-
           // Check if token contains a verifiable presentation
           if (!decodedToken.hasOwnProperty('vp')) {
             verificationState = "No Verified presentation in response";
@@ -46,20 +42,16 @@ export default function requestVC(userPrincipal: string, course: string): Promis
           const decodedIIToken: any = jwtDecode(decodedToken.vp?.verifiableCredential[0]);
           const decodedIssuerToken: any = jwtDecode(decodedToken.vp?.verifiableCredential[1]);
 
-          // Validate the credential against the spec
-          validateCredential(vc_spec, decodedIssuerToken.vc );
-
           // Update verification state
           verificationState = vc_spec.credentialType;
-
           updateState({
+            token: token,
             decodedToken,
             decodedIIToken,
             decodedIssuerToken,
             verificationState,
             issuer: decodedIssuerToken.iss,
           });
-
           resolve(token); // Resolve with the decoded token after successful validation
         } catch (error) {
           reject(error); // Reject in case of any error
