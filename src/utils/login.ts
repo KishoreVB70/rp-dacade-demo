@@ -9,7 +9,6 @@ async function authenticateUser(): Promise<Identity> {
     if(!isAuthenticated) {
         await new Promise<void>((resolve) => {
             authClient.login({
-                // For NFID -> https://nfid.one/authenticate
                 identityProvider: ii_url,
                 onSuccess: resolve,
             });
