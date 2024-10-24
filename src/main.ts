@@ -7,7 +7,12 @@ import { State, getState } from "./utils/store";
 import { renderCredential } from "./utils/decodeCredentialUI";
 import { Principal } from "@dfinity/principal";
 import { CredentialSpec, ValidateVpRequest } from "./relying_party/relying_party.did";
-import { createActor } from "./relying_party";
+import { Actor, HttpAgent } from "@dfinity/agent";
+import { idlFactory } from "./rpdemo_backend";
+
+if (typeof global === 'undefined') {
+  window.global = window;
+}
 
 // Login
 const loginBtn = document.getElementById("login") as HTMLButtonElement;
@@ -133,9 +138,18 @@ verifyBtn.addEventListener("click", async() => {
       issuer_origin: issuerUrl,
       vp_jwt: state.token,
     }
-    let actor = createActor("bkyz2-fmaaa-aaaaa-qaaaq-cai");
+    // let actor = createActor("bkyz2-fmaaa-aaaaa-qaaaq-cai");
+    //---------------------------
+    const agent = new HttpAgent({ host: 'https://ic0.app' });
+    
+    // Create an actor that allows you to interact with the canister
+    const actor = Actor.createActor(idlFactory, {
+      agent,
+      canisterId: 'dqblg-3qaaa-aaaap-akprq-cai',
+    });
+    //--------------------------
     console.log(actor);
-    let result = await actor.verify_credential(req);
+    let result = await actor.validate_vc_token_allinputs(req);
     console.log("Result from backend: ", result);
     showToast("Verification Succesfull", "#4CAF50");
     updateUI();
