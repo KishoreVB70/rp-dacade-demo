@@ -5,10 +5,14 @@ import requestVC from "./utils/credential";
 import loginWithIdentity from "./utils/login";
 import { State, getState } from "./utils/store";
 import { renderCredential } from "./utils/decodeCredentialUI";
+import { Principal } from "@dfinity/principal";
+import { CredentialSpec, ValidateVpRequest } from "./relying_party/relying_party.did";
+import { createActor } from "./relying_party";
 
 // Login
 const loginBtn = document.getElementById("login") as HTMLButtonElement;
 const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
+const verifyBtn = document.getElementById("verifybtn") as HTMLButtonElement;
 
 // Drop Down
 let selectedCourse: string = '';
@@ -84,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => updateUI());
 
 // Internet Identity login
 loginBtn.addEventListener("click", async() =>  {
-  await loginWithIdentity();
+  let princi = await loginWithIdentity();
+  console.log("User principal: ", princi);
   dropDown.style.display = "inline-block";
   updateUI();
 })
@@ -97,13 +102,45 @@ rpBtn.addEventListener("click", async() => {
       showToast("Please select a course from the dropdown", "#FF0000");
       return;
     }
-    let token: any = await requestVC(state.userPrincipal, selectedCourse, "John Doe");
-    showToast("Verification completed", "#4CAF50");
+    let token: any = await requestVC(state.userPrincipal, selectedCourse);
+    showToast("Credenetial Obtained", "#4CAF50");
     console.log(getState());
     renderCredential(token);
     updateUI();
+
   } catch(e) {
     console.log("Error in crendential process: ", e);
+    showToast("Verification failed!", "#FF0000")
+  }
+});
+
+// Verify credential
+verifyBtn.addEventListener("click", async() => {
+  try {
+    let state:State = getState();
+    let issuerUrl = "https://dacade.org/";
+    const vc_spec_backend: CredentialSpec = {
+      credential_type: `Verified ${selectedCourse} completion on Dacade`,
+      arguments: [
+        [
+          ["course", { 'String': selectedCourse }],
+        ]
+      ]
+    }
+    let req: ValidateVpRequest = {
+      effective_vc_subject: Principal.fromText(state.userPrincipal),
+      credential_spec: vc_spec_backend,
+      issuer_origin: issuerUrl,
+      vp_jwt: state.token,
+    }
+    let actor = createActor("bkyz2-fmaaa-aaaaa-qaaaq-cai");
+    console.log(actor);
+    let result = await actor.verify_credential(req);
+    console.log("Result from backend: ", result);
+    showToast("Verification Succesfull", "#4CAF50");
+    updateUI();
+  } catch(e) {
+    console.log("Error in verification process: ", e);
     showToast("Verification failed!", "#FF0000")
   }
 });
