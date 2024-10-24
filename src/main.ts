@@ -64,8 +64,10 @@ const updateUI = () => {
     ? `User Principal: ${state.userPrincipal.slice(0, 4)}...${state.userPrincipal.slice(-3)}` 
     : "User Not logged in";
   updateInnerText(princText, principal);
-
+  
+  
   // Toggle buttons based on login state
+  toggleVisibility(verifyBtn, !!state.token)
   toggleVisibility(loginBtn, !state.userPrincipal);
   toggleVisibility(rpBtn, !!state.userPrincipal);
 
