@@ -2,7 +2,25 @@ import { issuer_canister_id, issuer_url } from "./constants";
 import { getState } from "./store";
 let identity: string = getState().userPrincipal;
 
-const batchRequest = [
+type VcFlowRequest = {
+    id: number | string;
+    jsonrpc: "2.0"; // Literal type for jsonrpc field
+    method: "request_credential"; // Literal type for method field
+    params: {
+      issuer: {
+        origin: string;
+        canisterId: string;
+      };
+      credentialSpec: {
+        credentialType: string;
+        arguments: Record<string, string | number>;
+      };
+      credentialSubject: string;
+      derivationOrigin?: string;
+    };
+  };
+  
+const batchRequest: VcFlowRequest[] = [
     {
         id: 1,
         jsonrpc: "2.0",
@@ -40,7 +58,6 @@ const batchRequest = [
         }
     },
 ]
-
 
 async function handleFlowFinished(event: MessageEvent) {
     try {
