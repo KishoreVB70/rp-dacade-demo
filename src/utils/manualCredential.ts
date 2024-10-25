@@ -1,8 +1,47 @@
+import { issuer_canister_id, issuer_url } from "./constants";
 import { getState } from "./store";
-const batchRequest = {};
+let identity: string = getState().userPrincipal;
+
+const batchRequest = [
+    {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "request_credential",
+        params: {
+            issuer: {
+                origin: issuer_url,
+                canisterId:  issuer_canister_id,
+            },
+            credentialSpec: {
+                credentialType: "Verified TS101 completion on Dacade",
+                arguments: {
+                    "course": "TS101",
+                },
+            },
+            credentialSubject: identity,
+        }
+    },
+    {
+        id: 2,
+        jsonrpc: "2.0",
+        method: "request_credential",
+        params: {
+            issuer: {
+                origin: issuer_url,
+                canisterId:  issuer_canister_id,
+            },
+            credentialSpec: {
+                credentialType: "Verified T2101 completion on Dacade",
+                arguments: {
+                    "course": "TS201",
+                },
+            },
+            credentialSubject: identity,
+        }
+    },
+]
 
 
-let identity = getState().userPrincipal;
 async function handleFlowFinished(event: MessageEvent) {
     try {
       console.log(event);
