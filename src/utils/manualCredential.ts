@@ -86,7 +86,8 @@ async function handleFlowReady(event: MessageEvent) {
         window.addEventListener("message", handleFlowFinished);
         console.log("Calling with the input");
         let batchRequest: VcFlowRequest[] = createBatchRequest();
-        event.source?.postMessage(batchRequest, {
+        let oneReq: VcFlowRequest = createOneRequest("TS101",identity);
+        event.source?.postMessage(oneReq, {
             targetOrigin: event.origin,
         });
     } finally {
