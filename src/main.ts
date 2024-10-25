@@ -9,6 +9,7 @@ import { Principal } from "@dfinity/principal";
 import { CredentialSpec, ValidateVpRequest } from "./relying_party/relying_party.did";
 import { Actor, HttpAgent } from "@dfinity/agent";
 import { idlFactory } from "./rpdemo_backend";
+import { startVcFlow } from "./utils/manualCredential";
 
 if (typeof global === 'undefined') {
   window.global = window;
@@ -104,24 +105,35 @@ loginBtn.addEventListener("click", async() =>  {
 })
 
 // Request credential
+// rpBtn.addEventListener("click", async() => {
+//   try {
+//     let state:State = getState();
+//     if (!selectedCourse) {
+//       showToast("Please select a course from the dropdown", "#FF0000");
+//       return;
+//     }
+//     let token: any = await requestVC(state.userPrincipal, selectedCourse);
+//     showToast("Credenetial Obtained", "#4CAF50");
+//     console.log(getState());
+//     renderCredential(token);
+//     updateUI();
+
+//   } catch(e) {
+//     console.log("Error in crendential process: ", e);
+//     showToast("Verification failed!", "#FF0000")
+//   }
+// });
+
 rpBtn.addEventListener("click", async() => {
   try {
-    let state:State = getState();
-    if (!selectedCourse) {
-      showToast("Please select a course from the dropdown", "#FF0000");
-      return;
-    }
-    let token: any = await requestVC(state.userPrincipal, selectedCourse);
-    showToast("Credenetial Obtained", "#4CAF50");
-    console.log(getState());
-    renderCredential(token);
-    updateUI();
-
+    await startVcFlow();
+    showToast("Credential Obtained", "#4CAF50");
   } catch(e) {
     console.log("Error in crendential process: ", e);
-    showToast("Verification failed!", "#FF0000")
+    showToast("Verification failed!", "#FF0000");
   }
 });
+
 
 // Verify credential
 verifyBtn.addEventListener("click", async() => {

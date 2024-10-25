@@ -1,6 +1,5 @@
 import { issuer_canister_id, issuer_url } from "./constants";
 import { getState } from "./store";
-let identity: string = getState().userPrincipal;
 
 type VcFlowRequest = {
     id: number | string;
@@ -18,10 +17,10 @@ type VcFlowRequest = {
       credentialSubject: string;
       derivationOrigin?: string;
     };
-  };
-  
-const batchRequest: VcFlowRequest[] = [
-    {
+};
+
+function createOneRequest(course: string, identity: string): VcFlowRequest {
+    return {
         id: 1,
         jsonrpc: "2.0",
         method: "request_credential",
@@ -31,37 +30,35 @@ const batchRequest: VcFlowRequest[] = [
                 canisterId:  issuer_canister_id,
             },
             credentialSpec: {
-                credentialType: "Verified TS101 completion on Dacade",
+                credentialType: `Verified ${course} course completion in dacade`,
                 arguments: {
-                    "course": "TS101",
-                },
+                    "course": `${course}`
+                }
             },
             credentialSubject: identity,
         }
-    },
-    {
-        id: 2,
-        jsonrpc: "2.0",
-        method: "request_credential",
-        params: {
-            issuer: {
-                origin: issuer_url,
-                canisterId:  issuer_canister_id,
-            },
-            credentialSpec: {
-                credentialType: "Verified T2101 completion on Dacade",
-                arguments: {
-                    "course": "TS201",
-                },
-            },
-            credentialSubject: identity,
-        }
-    },
-]
+    }
+}
+
+function createBatchRequest(): VcFlowRequest[] {
+    let state = getState();
+    let identity = state.userPrincipal;
+    let req1: VcFlowRequest = createOneRequest(
+        "TS101",
+        identity
+    )
+    let req2: VcFlowRequest = createOneRequest(
+        "TS201",
+        identity
+    )
+
+    let req: VcFlowRequest[] = [req1, req2];
+    return req;
+}
 
 async function handleFlowFinished(event: MessageEvent) {
     try {
-      console.log(event);
+      console.log("Received final output: ", event);
 
       if (
         event.source &&
@@ -77,12 +74,18 @@ async function handleFlowFinished(event: MessageEvent) {
 }
 
 async function handleFlowReady(event: MessageEvent) {
-    if (!identity || event.origin !== "https://identity.ic0.app" || event.data.method !== "vc-flow-ready") {
+    let state = getState();
+    let identity = state.userPrincipal;
+    console.log("Received first contact", event);
+    if (!identity || event.origin !== "https://identity.internetcomputer.org" || event.data.method !== "vc-flow-ready") {
+        console.log("Rejecting message");
         return;
     }
 
     try {
         window.addEventListener("message", handleFlowFinished);
+        console.log("Calling with the input");
+        let batchRequest: VcFlowRequest[] = createBatchRequest();
         event.source?.postMessage(batchRequest, {
             targetOrigin: event.origin,
         });
@@ -92,7 +95,7 @@ async function handleFlowReady(event: MessageEvent) {
 }
 
 export async function startVcFlow() {
-    const vcFlowUrl = new URL("vc-flow/", process.env.II_URL);
+    console.log("Started vc flow");
     window.addEventListener("message", handleFlowReady);
-    window.open(vcFlowUrl.toString());
+    window.open("https://identity.internetcomputer.org/vc-flow/");
 }
