@@ -105,34 +105,35 @@ loginBtn.addEventListener("click", async() =>  {
 })
 
 // Request credential
-// rpBtn.addEventListener("click", async() => {
-//   try {
-//     let state:State = getState();
-//     if (!selectedCourse) {
-//       showToast("Please select a course from the dropdown", "#FF0000");
-//       return;
-//     }
-//     let token: any = await requestVC(state.userPrincipal, selectedCourse);
-//     showToast("Credenetial Obtained", "#4CAF50");
-//     console.log(getState());
-//     renderCredential(token);
-//     updateUI();
-
-//   } catch(e) {
-//     console.log("Error in crendential process: ", e);
-//     showToast("Verification failed!", "#FF0000")
-//   }
-// });
-
 rpBtn.addEventListener("click", async() => {
   try {
-    await startVcFlow();
-    showToast("Credential Obtained", "#4CAF50");
+    let state:State = getState();
+    if (!selectedCourse) {
+      showToast("Please select a course from the dropdown", "#FF0000");
+      return;
+    }
+    let token: any = await requestVC(state.userPrincipal, selectedCourse);
+    showToast("Credenetial Obtained", "#4CAF50");
+    console.log(getState());
+    renderCredential(token);
+    updateUI();
+
   } catch(e) {
     console.log("Error in crendential process: ", e);
-    showToast("Verification failed!", "#FF0000");
+    showToast("Verification failed!", "#FF0000")
   }
 });
+
+// Manual integration function
+// rpBtn.addEventListener("click", async() => {
+//   try {
+//     await startVcFlow();
+//     showToast("Credential Obtained", "#4CAF50");
+//   } catch(e) {
+//     console.log("Error in crendential process: ", e);
+//     showToast("Verification failed!", "#FF0000");
+//   }
+// });
 
 
 // Verify credential
