@@ -9,6 +9,7 @@ import { Principal } from "@dfinity/principal";
 import { CredentialSpec, ValidateVpRequest } from "./relying_party/relying_party.did";
 import { Actor, HttpAgent } from "@dfinity/agent";
 import { idlFactory } from "./rpdemo_backend";
+import {idlFactory as issuerIDL} from "./issuer";
 import { startVcFlow } from "./utils/manualCredential";
 
 if (typeof global === 'undefined') {
@@ -46,6 +47,7 @@ menuItems.forEach((item) => {
 // Credential
 const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
 const rpBtn = document.getElementById("rp") as HTMLButtonElement;
+const createBtn = document.getElementById("createcred") as HTMLButtonElement;
 
 // Helper function to toggle the visibility of an element
 const toggleVisibility = (element: HTMLElement | null, show: boolean): void => {
@@ -182,3 +184,26 @@ verifyBtn.addEventListener("click", async() => {
     loadingElement?.classList.add('hidden');
   }
 });
+
+createBtn.addEventListener("click", async() => {
+  try {
+    if (!selectedCourse) {
+      showToast("Please select a course from the dropdown", "#FF0000");
+      return;
+    }
+    const agent = new HttpAgent({ host: 'https://ic0.app' });
+    
+    // Create an actor that allows you to interact with the canister
+    const actor = Actor.createActor(issuerIDL, {
+      agent,
+      canisterId: 'dqblg-3qaaa-aaaap-akprq-cai',
+    });
+
+    let result = await actor.add_course_completion(selectedCourse);
+    if (result) showToast("Credential successfully created", "#4CAF50");
+  }
+  catch(error) {
+    console.log("Error creating credential: ", error);
+    showToast("Error in credential creation!", "#FF0000");
+  }
+})
