@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: './',
   build: {
-    outDir: '../dist',
+    outDir: './dist',
   },
   publicDir: 'public',
   server: {
