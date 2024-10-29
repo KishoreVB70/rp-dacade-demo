@@ -2,8 +2,18 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  root: 'src',  // Set the root to the 'src' folder
+  root: './',
   build: {
-    outDir: '../dist',  // Output the build files to the 'dist' directory
-  }
+    outDir: '../dist',
+  },
+  publicDir: 'public',
+  server: {
+    open: true,  // Opens the browser on server start
+  },
+  fs: {
+    allow: [
+      './src',                  // Allow serving from src if needed
+      './custom-directory',     // Replace with the actual path of your `.well-known` directory
+    ],
+  },
 });

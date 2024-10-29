@@ -1,8 +1,8 @@
 // tailwind.config.js
 export default {
   content: [
-    './src/index.html',
-    './src/**/*.{js,ts,jsx,tsx}',  // Include this if you have files in the src folder
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',  // Adjust based on file types in your project
   ],
   theme: {
     extend: {
