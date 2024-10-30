@@ -62,7 +62,7 @@ export default function requestVC(userPrincipal: string, course: string): Promis
         reject(e); // Reject the promise if there is an error
       },
       issuerData: {
-        origin: "https://rp-dacade-demo.netlify.app/",
+        origin: "https://rp-dacade-demo.netlify.app",
         canisterId: Principal.fromText(issuer_canister_id),
       },
       credentialData: {
