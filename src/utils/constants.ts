@@ -11,10 +11,6 @@ const issuer_canister_id_local: string = "bd3sg-teaaa-aaaaa-qaaba-cai";
 const issuer_url_local: string = "http://127.0.0.1:4943/?canisterId=bw4dl-smaaa-aaaaa-qaacq-cai&id=bd3sg-teaaa-aaaaa-qaaba-cai";
 
 
-export const ii_url: string = ii_url_experimental_mainnet;
+export const ii_url: string = ii_url_mainnet;
 export const issuer_canister_id: string = issuer_canister_id_mainnet;
 export const issuer_url: string = issuer_url_mainnet;
-//https://identity.internetcomputer.org/#authorize
-//https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io
-
-// Principal backend - ysixd-7i5eo-cshao-cbnqu-iur5b-ihv32-tl6tr-bar6f-dmvyo-ffvry-yae
