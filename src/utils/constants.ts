@@ -1,7 +1,7 @@
 const ii_url_mainnet: string = "https://identity.ic0.app";
 
 const issuer_canister_id_mainnet: string = "bu5ax-5iaaa-aaaam-qbgcq-cai";
-const issuer_url_mainnet:string = "https://bu5ax-5iaaa-aaaam-qbgcq-cai.raw.icp0.io/";
+const issuer_url_mainnet:string = "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io";
 
 const ii_url_experimental_mainnet: string = "https://identity.internetcomputer.org/";
 
