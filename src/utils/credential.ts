@@ -3,7 +3,7 @@ import { Principal } from "@dfinity/principal";
 import { jwtDecode } from "jwt-decode";
 import { updateState } from "./store";
 import { CredentialRequestSpec } from "@dfinity/verifiable-credentials/request-verifiable-presentation";
-import { ii_url, issuer_canister_id, issuer_url } from "./constants";
+import { ii_url, issuer_canister_id, issuer_url, rp_frontend_url } from "./constants";
 
 export default function requestVC(userPrincipal: string, course: string): Promise<any> {
   const vc_spec: CredentialRequestSpec = {
@@ -62,7 +62,7 @@ export default function requestVC(userPrincipal: string, course: string): Promis
         reject(e); // Reject the promise if there is an error
       },
       issuerData: {
-        origin: issuer_url,
+        origin: rp_frontend_url,
         canisterId: Principal.fromText(issuer_canister_id),
       },
       credentialData: {

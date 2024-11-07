@@ -4,6 +4,7 @@ const issuer_canister_id_mainnet: string = "bu5ax-5iaaa-aaaam-qbgcq-cai";
 const issuer_url_mainnet:string = "https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io";
 
 const ii_url_experimental_mainnet: string = "https://identity.internetcomputer.org/";
+export const rp_frontend_url: string = "https://rp-dacade-demo.netlify.app";
 
 const ii_url_local: string = "http://127.0.0.1:4943/?canisterId=br5f7-7uaaa-aaaaa-qaaca-cai&id=bkyz2-fmaaa-aaaaa-qaaaq-cai";
 
