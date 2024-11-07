@@ -20,6 +20,6 @@ async function authenticateUser(): Promise<Identity> {
 export default async function loginWithloginWithIdentity(): Promise<String>{
     const identity = await authenticateUser();
     const principal: string = identity.getPrincipal().toString();
-    updateState({userPrincipal: principal});
+    updateState({identity, userPrincipal: principal});
     return principal;
 }

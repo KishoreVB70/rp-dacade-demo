@@ -1,3 +1,5 @@
+import { Identity } from "@dfinity/agent";
+
 // Define the type for the state
 export interface State {
   userPrincipal: string;
@@ -7,6 +9,7 @@ export interface State {
   decodedIssuerToken: Record<string, unknown>; // Assuming decodedIssuerToken is a generic object
   verificationState: string;
   issuer: string;
+  identity: Identity | null;
 }
 
 // Initialize the state
@@ -18,6 +21,7 @@ let state: State = {
   decodedIssuerToken: {},
   verificationState: "",
   issuer: "",
+  identity: null,
 };
 
 // Function to get the current state
