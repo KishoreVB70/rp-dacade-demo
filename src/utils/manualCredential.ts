@@ -44,11 +44,11 @@ function createBatchRequest(): VcFlowRequest[] {
     let state = getState();
     let identity = state.userPrincipal;
     let req1: VcFlowRequest = createOneRequest(
-        "TS101",
+        "typescript-smart-contract-101",
         identity
     )
     let req2: VcFlowRequest = createOneRequest(
-        "TS201",
+        "typescript-development-201",
         identity
     )
 
