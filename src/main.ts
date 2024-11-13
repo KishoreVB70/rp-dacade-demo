@@ -22,28 +22,29 @@ const loginBtn = document.getElementById("login") as HTMLButtonElement;
 const princText = document.getElementById("princ") as HTMLParagraphElement  | null;
 const verifyBtn = document.getElementById("verifybtn") as HTMLButtonElement;
 const loadingElement = document.getElementById('loading');
+const profilePic = document.getElementById("profile-pic") as HTMLDivElement | null;
 
 
 // Drop Down
 let selectedCourse: string = '';
 const menuButton = document.getElementById('menu-button') as HTMLElement;
-const dropDown = document.getElementById('drop-down') as HTMLElement;
-const dropdownMenu = menuButton.nextElementSibling as HTMLElement;
-const menuItems = dropdownMenu.querySelectorAll('a');
-// Toggle dropdown visibility on button click
-menuButton.addEventListener('click', () => {
-  dropdownMenu.classList.toggle('hidden');
-});
-// Update selectedCourse when a dropdown item is clicked
-menuItems.forEach((item) => {
-  item.addEventListener('click', (event: MouseEvent) => {
-    event.preventDefault();
-    const target = event.target as HTMLElement;
-    selectedCourse = target.textContent || ''; // Store the selected course text
-    menuButton.textContent = `Selected Course: ${selectedCourse}`; // Optionally update button text
-    dropdownMenu.classList.add('hidden');
-  });
-});
+// const dropDown = document.getElementById('drop-down') as HTMLElement;
+// const dropdownMenu = menuButton.nextElementSibling as HTMLElement;
+// const menuItems = dropdownMenu.querySelectorAll('a');
+// // Toggle dropdown visibility on button click
+// menuButton.addEventListener('click', () => {
+//   dropdownMenu.classList.toggle('hidden');
+// });
+// // Update selectedCourse when a dropdown item is clicked
+// menuItems.forEach((item) => {
+//   item.addEventListener('click', (event: MouseEvent) => {
+//     event.preventDefault();
+//     const target = event.target as HTMLElement;
+//     selectedCourse = target.textContent || ''; // Store the selected course text
+//     menuButton.textContent = `Selected Course: ${selectedCourse}`; // Optionally update button text
+//     dropdownMenu.classList.add('hidden');
+//   });
+// });
 
 // Credential
 const tokenText = document.getElementById("token") as HTMLParagraphElement  | null;
@@ -66,16 +67,17 @@ const updateUI = () => {
   const state:State = getState();
 
   // Update principal text
-  let principal: string = state.userPrincipal 
-    ? `User Principal: ${state.userPrincipal.slice(0, 4)}...${state.userPrincipal.slice(-3)}` 
+  let principal: string = state.userPrincipal
+    ? `User Principal: ${state.userPrincipal.slice(0, 4)}...${state.userPrincipal.slice(-3)}`
     : "User Not logged in";
   updateInnerText(princText, principal);
-  
-  
+
+
   // Toggle buttons based on login state
   toggleVisibility(verifyBtn, !!state.token)
   toggleVisibility(loginBtn, !state.userPrincipal);
   toggleVisibility(rpBtn, !!state.userPrincipal);
+  toggleVisibility(profilePic, !!state.userPrincipal)
 
   // Update token text and visibility
   const tokenDisplayText = state.verificationState
@@ -88,8 +90,8 @@ const updateUI = () => {
 const showToast = (text: string , bg: string): void => {
   Toastify({
     text: text,
-    duration: 3000,  
-    gravity: "bottom", 
+    duration: 3000,
+    gravity: "bottom",
     position: "center",
     style: {
       background: bg,
@@ -99,11 +101,12 @@ const showToast = (text: string , bg: string): void => {
 
 document.addEventListener("DOMContentLoaded", () => updateUI());
 
+console.log({loginBtn})
 // Internet Identity login
 loginBtn.addEventListener("click", async() =>  {
   let princi = await loginWithIdentity();
   console.log("User principal: ", princi);
-  dropDown.style.display = "inline-block";
+  // dropDown.style.display = "inline-block";
   updateUI();
 })
 
@@ -140,78 +143,78 @@ rpBtn.addEventListener("click", async() => {
 
 
 // Verify credential
-verifyBtn.addEventListener("click", async() => {
-  try {
-    loadingElement?.classList.remove('hidden');
-    let state:State = getState();
-    let issuerUrl = "https://dacade.org/";
-    const vc_spec_backend: CredentialSpec = {
-      credential_type: `Verified ${selectedCourse} completion on Dacade`,
-      arguments: [
-        [
-          ["course", { 'String': selectedCourse }],
-        ]
-      ]
-    }
-    let req: ValidateVpRequest = {
-      effective_vc_subject: Principal.fromText(state.userPrincipal),
-      credential_spec: vc_spec_backend,
-      issuer_origin: issuerUrl,
-      vp_jwt: state.token,
-    }
-    // let actor = createActor("bkyz2-fmaaa-aaaaa-qaaaq-cai");
-    //---------------------------
-    const agent = new HttpAgent({ host: 'https://ic0.app' });
-    
-    // Create an actor that allows you to interact with the canister
-    const actor = Actor.createActor(idlFactory, {
-      agent,
-      canisterId: 'dqblg-3qaaa-aaaap-akprq-cai',
-    });
-    //--------------------------
-    console.log(actor);
-    let result = await actor.validate_vc_token_allinputs(req);
-    console.log("Result from backend: ", result);
-    showToast("Verification Succesfull", "#4CAF50");
-    let verificationState = `Successfully Verified ${selectedCourse} completion on Dacade`
-    updateState({
-      verificationState: verificationState,
-    })
-    updateUI();
-  } catch(e) {
-    console.log("Error in verification process: ", e);
-    showToast("Verification failed!", "#FF0000")
-  } finally {
-    loadingElement?.classList.add('hidden');
-  }
-});
+// verifyBtn.addEventListener("click", async() => {
+//   try {
+//     loadingElement?.classList.remove('hidden');
+//     let state:State = getState();
+//     let issuerUrl = "https://dacade.org/";
+//     const vc_spec_backend: CredentialSpec = {
+//       credential_type: `Verified ${selectedCourse} completion on Dacade`,
+//       arguments: [
+//         [
+//           ["course", { 'String': selectedCourse }],
+//         ]
+//       ]
+//     }
+//     let req: ValidateVpRequest = {
+//       effective_vc_subject: Principal.fromText(state.userPrincipal),
+//       credential_spec: vc_spec_backend,
+//       issuer_origin: issuerUrl,
+//       vp_jwt: state.token,
+//     }
+//     // let actor = createActor("bkyz2-fmaaa-aaaaa-qaaaq-cai");
+//     //---------------------------
+//     const agent = new HttpAgent({ host: 'https://ic0.app' });
+//
+//     // Create an actor that allows you to interact with the canister
+//     const actor = Actor.createActor(idlFactory, {
+//       agent,
+//       canisterId: 'dqblg-3qaaa-aaaap-akprq-cai',
+//     });
+//     //--------------------------
+//     console.log(actor);
+//     let result = await actor.validate_vc_token_allinputs(req);
+//     console.log("Result from backend: ", result);
+//     showToast("Verification Succesfull", "#4CAF50");
+//     let verificationState = `Successfully Verified ${selectedCourse} completion on Dacade`
+//     updateState({
+//       verificationState: verificationState,
+//     })
+//     updateUI();
+//   } catch(e) {
+//     console.log("Error in verification process: ", e);
+//     showToast("Verification failed!", "#FF0000")
+//   } finally {
+//     loadingElement?.classList.add('hidden');
+//   }
+// });
 
-createBtn.addEventListener("click", async() => {
-  try {
-    let state:State = getState();
-    if (!selectedCourse) {
-      showToast("Please select a course from the dropdown", "#FF0000");
-      return;
-    }
-    if(state.identity == null) {
-      return;
-    }
-
-    const agent = new HttpAgent({ host: 'https://ic0.app', identity: state.identity });
-    console.log(agent);
-    
-    // Create an actor that allows you to interact with the canister
-    const actor = Actor.createActor(issuerIDL, {
-      agent,
-      canisterId: issuer_canister_id,
-    });
-
-    let result = await actor.add_course_completion(selectedCourse);
-    console.log(result);
-    if (result) showToast("Credential successfully created", "#4CAF50");
-  }
-  catch(error) {
-    console.log("Error creating credential: ", error);
-    showToast("Error in credential creation!", "#FF0000");
-  }
-})
+// createBtn.addEventListener("click", async() => {
+//   try {
+//     let state:State = getState();
+//     if (!selectedCourse) {
+//       showToast("Please select a course from the dropdown", "#FF0000");
+//       return;
+//     }
+//     if(state.identity == null) {
+//       return;
+//     }
+//
+//     const agent = new HttpAgent({ host: 'https://ic0.app', identity: state.identity });
+//     console.log(agent);
+//
+//     // Create an actor that allows you to interact with the canister
+//     const actor = Actor.createActor(issuerIDL, {
+//       agent,
+//       canisterId: issuer_canister_id,
+//     });
+//
+//     let result = await actor.add_course_completion(selectedCourse);
+//     console.log(result);
+//     if (result) showToast("Credential successfully created", "#4CAF50");
+//   }
+//   catch(error) {
+//     console.log("Error creating credential: ", error);
+//     showToast("Error in credential creation!", "#FF0000");
+//   }
+// })
