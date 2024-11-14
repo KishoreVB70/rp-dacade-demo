@@ -6,31 +6,47 @@
     <title>Relying Party Demo</title>
     <base href="/">
       <style>
-          @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter&family=Manrope:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
           body {
-              font-family: 'Poppins', sans-serif;
+              font-family: 'Manrope', sans-serif;
           }
       </style>
     <link rel="icon" type="image/png" href="/relyingPartyLogo.ico" />
   </head>
-  <body class="h-screen overflow-hidden">
+  <body class="h-[80dvh] overflow-hidden">
   <header class="border-b">
-      <div class="container px-5 mx-auto flex items-center justify-between py-5">
+      <div class="max-w-5xl px-5 mx-auto flex items-center justify-between py-5">
           <h1 class="text-xl font-semibold">Issuer Demo App</h1>
           <button id="login" class="px-3 py-1 text-sm border rounded hover:bg-gray-100">Sign in</button>
-          <div id="profile-pic" class="h-10 w-10 rounded-full bg-gradient-to-tr from-purple-600 to-orange"></div>
+          <button id="profile-pic" class="px-3 py-1 text-sm border rounded hover:bg-gray-100">Log out</button>
       </div>
   </header>
 
-  <main class="flex-1 container px-5 mx-auto h-full max-w-4xl py-8 flex flex-col items-center gap-8">
-      <div class="text-center space-y-4 my-auto">
+  <main class="flex-1 max-w-5xl px-5 mx-auto h-full py-8 flex flex-col items-center gap-8">
+      <div class="text-center space-y-4 my-auto  -pt-96">
           <h2 class="text-3xl font-bold">
-              Welcome to the Issuer demo App! Obtain your verifiable credential and test
-              <a href="#" class="text-blue-600 hover:underline">Badgegate</a>.
+              Welcome to the Issuer demo App! Obtain your </br> verifiable credential and test
+              <a href="#" class="text-purple hover:underline">Badgegate</a>.
           </h2>
-          <button id="" class="px-6 py-2 text-lg bg-[#B4A6EA] hover:bg-[#9485D9] text-white rounded">
-              Get credential
+          <button id="rp" class="px-6 py-2 disabled:opacity-50 mx-auto disabled:cursor-not-allowed text-lg bg-purple text-white rounded-lg">
+             <span id="rp-text" class="font-medium">Get credential</span>
+             <span id="rp-loader" class="hidden" >
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 animate-spin mx-auto">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+             </span>
           </button>
+
+          <div id="credential-badge" >
+              <div class="flex items-center gap-1 py-2.5 px-4 bg-[#6856C2]/10 w-fit mx-auto rounded-full text-purple">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 12L11 14L15 10M20 13C20 18 16.5 20.5 12.34 21.95C12.1222 22.0238 11.8855 22.0203 11.67 21.94C7.5 20.5 4 18 4 13V6C4 5.73478 4.10536 5.48043 4.29289 5.29289C4.48043 5.10536 4.73478 5 5 5C7 5 9.5 3.8 11.24 2.28C11.4519 2.099 11.7214 1.99955 12 1.99955C12.2786 1.99955 12.5481 2.099 12.76 2.28C14.51 3.81 17 5 19 5C19.2652 5 19.5196 5.10536 19.7071 5.29289C19.8946 5.48043 20 5.73478 20 6V13Z" stroke="#6B35DE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                 </svg>
+                 <span class="font-normal">
+                     You got the credential!
+                 </span>
+              </div>
+          </div>
 
 <!--                <div id="drop-down" class="relative text-left mt-10">-->
 <!--                    <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="menu-button" aria-expanded="true" aria-haspopup="true">-->
@@ -54,7 +70,7 @@
   </main>
 
   <footer class="border-t py-5 absolute w-full bottom-0 bg-white">
-      <div class="container px-5 mx-auto text-sm">
+      <div class="max-w-5xl px-5 mx-auto text-sm">
           <p class="ml-auto !font-normal">© Issuer Demo App <span id="currentYear"></span></p>
       </div>
   </footer>
