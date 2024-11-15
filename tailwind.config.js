@@ -9,6 +9,7 @@ export default {
       colors: {
         orange: '#D4207B',
         dacblue: "#1B66F8",
+        purple: "#6856C2"
       },
     },
   },

@@ -10,6 +10,7 @@ export interface State {
   verificationState: string;
   issuer: string;
   identity: Identity | null;
+  hasCompletedTheCourse: boolean
 }
 
 // Initialize the state
@@ -22,6 +23,7 @@ let state: State = {
   verificationState: "",
   issuer: "",
   identity: null,
+  hasCompletedTheCourse: false
 };
 
 // Function to get the current state

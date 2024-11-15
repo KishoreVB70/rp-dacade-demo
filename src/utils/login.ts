@@ -23,3 +23,8 @@ export default async function loginWithloginWithIdentity(): Promise<String>{
     updateState({identity, userPrincipal: principal});
     return principal;
 }
+
+export async function logout() {
+    const authClient: AuthClient = await AuthClient.create();
+    await authClient.logout()
+}
