@@ -153,11 +153,9 @@ rpBtn.addEventListener("click", async() => {
 
     updateUI()
     console.log(result);
-    if (result) showToast("Credential successfully created", "#4CAF50");
   }
   catch(error) {
     console.log("Error creating credential: ", error);
-    showToast("Error in credential creation!", "#FF0000");
   } finally {
     if(rpLoader) {
       rpLoader.style.display = "none"
