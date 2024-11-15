@@ -148,7 +148,7 @@ rpBtn.addEventListener("click", async() => {
       canisterId: issuer_canister_id,
     });
 
-    let result = await actor.add_course_completion("TS101");
+    let result = await actor.add_course_completion("typescript-smart-contract-101");
     state.hasCompletedTheCourse = true;
 
     updateUI()
