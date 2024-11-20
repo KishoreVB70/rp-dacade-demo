@@ -4,11 +4,13 @@ import { ii_frontend_url_experimental } from "@/lib/constants";
 import { ICPAuthReturn } from "@/lib/types";
 import { useAuth } from "@/lib/context/AuthContext";
 import { popupCenter } from "@/lib/utils";
+import { Identity } from "@dfinity/agent";
+
 
 function useICPAuth(): ICPAuthReturn {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [authClient, setAuthClient] = useState<AuthClient | null>(null);
-  const { setPrincipal } = useAuth();
+  const { setPrincipal, setIdentity } = useAuth();
 
   // Initialize the AuthClient and check if the user is authenticated
   useLayoutEffect(() => {
@@ -19,7 +21,8 @@ function useICPAuth(): ICPAuthReturn {
       // Check if the user is already authenticated - local storage session
       const authStatus = await client.isAuthenticated();
       if (authStatus) {
-        const identity = client.getIdentity();
+        const identity: Identity = client.getIdentity();
+        setIdentity(identity);
         setPrincipal(identity.getPrincipal().toText());
       }
       setIsLoading(false);
@@ -34,6 +37,7 @@ function useICPAuth(): ICPAuthReturn {
         onSuccess: () => {
           const identity = authClient.getIdentity();
           setPrincipal(identity.getPrincipal().toText());
+          setIdentity(identity);
         },
         windowOpenerFeatures: popupCenter(),
       });
@@ -44,6 +48,7 @@ function useICPAuth(): ICPAuthReturn {
     if (authClient) {
       await authClient.logout();
       setPrincipal(null);
+      setIdentity(null);
       /* 
       Creating a new instance of authClient to 
       prevent unexpected behaviour during subsequent login
