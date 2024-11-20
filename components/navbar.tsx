@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState} from 'react'
-
+import React from 'react'
 import { Button } from "@/components/ui/button"
 import { useAuth } from '@/lib/context/AuthContext'
 import useICPAuth from '@/hooks/useICPAuth'
@@ -32,19 +31,19 @@ export default function Navbar() {
             :principal
               ?(
                 <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" className="mr-4 h-10 w-10 p-0 rounded-full">
-                  <Avatar name={avatarProp} size={40} />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80 p-0" align="end">
-                  <UserMenu handleDisconnectWallet={handleDisconnectWallet} />
-                </PopoverContent>
-              </Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost" className="mr-4 h-10 w-10 p-0 rounded-full">
+                      <Avatar name={avatarProp} size={40} />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0" align="end">
+                    <UserMenu handleDisconnectWallet={handleDisconnectWallet} />
+                  </PopoverContent>
+                </Popover>
               )
               :(
                 <Button variant="outline" onClick={handleSignInClick}>
-                    Sign In
+                  Sign In
                 </Button>
               )
           }
