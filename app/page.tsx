@@ -1,12 +1,14 @@
-import Header from "@/components/header";
 import Main from "@/components/main";
-import Image from "next/image";
+import Navbar from "@/components/navbar";
+import { AuthProvider } from "@/lib/context/AuthContext";
 
 export default function Home() {
   return (
-    <main className="flex-grow" >
-      <Header />
-      <Main />
-    </main>
+    <AuthProvider>
+      <main className="flex flex-col flex-grow" >
+        <Navbar />
+        <Main />
+      </main>
+    </AuthProvider>
   );
 }
