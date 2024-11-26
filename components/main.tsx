@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { useAuth } from '@/lib/context/AuthContext'
 import { getCredential } from '@/lib/services/getCredential'
+import { Ed25519KeyIdentity } from "@dfinity/identity";
 
 const Main = () => {
   const { principal, identity } = useAuth();
@@ -11,8 +12,19 @@ const Main = () => {
 
   const getCredentialAction = async() => {
     try{
+      // Create identity
+      // const identity = Ed25519KeyIdentity.generate();
+      const key = process.env.NEXT_PUBLIC_PRIVATE_KEY_PAIR;
       setIsLoading(true);
-      await getCredential(identity);
+      if(!key) {
+        console.log("No Key");
+        return;
+      }
+
+      const siteIdentity = Ed25519KeyIdentity.fromJSON(key);
+      console.log("Principal of the Site: ", siteIdentity.getPrincipal().toText());
+      console.log("User Identity: ", identity?.getPrincipal().toText());
+      // await getCredential(siteIdentity);
       setIsCredentialCreated(true);
     }
     catch(error) {
