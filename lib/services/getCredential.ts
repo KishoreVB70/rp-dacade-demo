@@ -17,7 +17,7 @@ export const getCredential = async(identity: Identity | null) => {
           canisterId: issuer_canister_id,
         });
     
-        const result = await actor.add_course_completion("typescript-smart-contract-101");    
+        const result = await actor.add_course_completion("demo");    
         console.log(result);
     } catch(error) {
         console.log(error);
