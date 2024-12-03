@@ -1,6 +1,6 @@
 import { useState, useCallback, useLayoutEffect } from "react";
 import { AuthClient } from "@dfinity/auth-client";
-import { ii_frontend_url_experimental, ii_frontend_url_official } from "@/lib/constants";
+import { internet_identity_url } from "@/lib/constants";
 import { ICPAuthReturn } from "@/lib/types";
 import { useAuth } from "@/lib/context/AuthContext";
 import { popupCenter } from "@/lib/utils";
@@ -33,7 +33,7 @@ function useICPAuth(): ICPAuthReturn {
   const loginWithInternetIdentity = useCallback(async () => {
     if (authClient) {
       await authClient.login({
-        identityProvider: ii_frontend_url_official,
+        identityProvider: internet_identity_url,
         onSuccess: () => {
           const identity = authClient.getIdentity();
           setPrincipal(identity.getPrincipal().toText());
