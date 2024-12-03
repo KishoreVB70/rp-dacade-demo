@@ -17,7 +17,7 @@ export const getCredential = async(identity: Identity | null) => {
           canisterId: issuer_canister_id,
         });
     
-        const result = await actor.add_course_completion("demo");    
+        const result = await actor.add_course_completion("DEMO");    
         console.log(result);
     } catch(error) {
         console.log(error);
